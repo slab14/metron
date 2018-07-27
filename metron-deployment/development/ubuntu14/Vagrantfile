@@ -45,8 +45,8 @@ puts " Running with ansible-skip-tags: " + ansibleSkipTags.split(",").to_s if an
 hosts = [{
     hostname: "node1",
     ip: "192.168.66.121",
-    memory: "40960",
-    cpus: 20,
+    memory: "49152",
+    cpus: 4,
     promisc: 2  # enables promisc on the 'Nth' network interface
 }]
 
@@ -83,6 +83,7 @@ Vagrant.configure(2) do |config|
       node.vm.provider "virtualbox" do |vb|
         vb.memory = host[:memory]
         vb.cpus = host[:cpus]
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
       end
     end
   end
